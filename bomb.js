@@ -1,0 +1,32 @@
+function Bomb(player, timeLeft) {
+  this.player = player;
+  this.position = player.getTilePosition() || {x: 0, y: 0};
+  this.timeLeft = timeLeft || 100;
+
+  this.getPosition = function () {
+    return this.position;
+  };
+
+  this.getTilePosition = function () {
+    return {
+      x: Math.round(this.position.x),
+      y: Math.round(this.position.y)
+    };
+  };
+
+  this.getTimeLeft = function () {
+    return this.timeLeft;
+  };
+
+  this.getRange = function () {
+    return this.player.getRange();
+  };
+
+  this.decreaseTimeLeft = function () {
+    this.timeLeft = Math.max(0, this.timeLeft - 1);
+  };
+
+  this.explode = function () {
+    this.timeLeft = 0;
+  };
+}
