@@ -21,8 +21,8 @@ const moveDict = {
 const rawMapData = [
   'rrrrrrr',
   'rgggggr',
-  'rgrgrgr',
-  'rgggggr',
+  'rdrgrgr',
+  'rdggggr',
   'rgrgrgr',
   'rgggggr',
   'rrrrrrr'
@@ -74,13 +74,25 @@ setInterval(function () {
       const bombsInThisPosition = gameState.bombs.filter(function (bomb) {
         return areTilePositionsEqual(bomb.getPosition(), player.getTilePosition());
       });
-      if (bombsInThisPosition.length === 0) {
+      if (playerHasBombsLeft(player) && bombsInThisPosition.length === 0) {
         gameState.bombs.push(
           new Bomb(player)
         );
       }
     }
   });
+
+  function playerHasBombsLeft(player) {
+    return getPlayerBombsNumber(player.getPlayerNumber()) < player.getMaxBombsNumber();
+  }
+
+  function getPlayerBombsNumber(playerNum) {
+    return gameState.bombs
+      .filter(function (bomb) {
+        return bomb.getPlayerNumber() === playerNum;
+      })
+      .length;
+  }
 
   // ADD EXPLOSIONS
   gameState.bombs
@@ -99,14 +111,17 @@ setInterval(function () {
 
   function placeFire(gameState, range, position, direction) {
     const nextPosition = sumPositions(position, direction);
-    if (range > 0 && isTileEmpty(gameState, nextPosition)) {
-      gameState.fires.push(new Fire(nextPosition));
-      placeFire(gameState, range - 1, nextPosition, direction)
+    if (range > 0) {
+      const tile = getTile(gameState.mapTiles, nextPosition);
+      if (tile.type === 'g') {
+        gameState.fires.push(new Fire(nextPosition));
+        placeFire(gameState, range - 1, nextPosition, direction);
+      }
+      if (tile.type === 'd') {
+        gameState.fires.push(new Fire(nextPosition));
+        tile.type = 'g';
+      }
     }
-  }
-
-  function isTileEmpty(gameState, position) {
-    return getTile(gameState.mapTiles, position).type === 'g';
   }
 
   // REMOVE EXPLODING BOMBS

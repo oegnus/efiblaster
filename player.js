@@ -1,6 +1,7 @@
 function Player(playerNumber, position, direction) {
   this.playerNumber = playerNumber;
   this.range = 2;
+  this.maxBombsNumber = 2;
   this.position = position || {x: 0, y: 0};
   this.direction = direction || {x: 0, y: 0};
   this.placeBomb = false;
@@ -11,6 +12,10 @@ function Player(playerNumber, position, direction) {
 
   this.getRange = function () {
     return this.range;
+  };
+
+  this.getMaxBombsNumber = function () {
+    return this.maxBombsNumber;
   };
 
   this.getPosition = function () {

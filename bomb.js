@@ -22,6 +22,10 @@ function Bomb(player, timeLeft) {
     return this.player.getRange();
   };
 
+  this.getPlayerNumber = function () {
+    return this.player.getPlayerNumber();
+  };
+
   this.decreaseTimeLeft = function () {
     this.timeLeft = Math.max(0, this.timeLeft - 1);
   };

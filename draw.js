@@ -22,8 +22,7 @@ function drawMap(gameState) {
     drawMapTile(mapTile);
   }
   gameState.bombs.forEach(function (bomb) {
-    drawOutline(bomb.getTilePosition(), 'red');
-    drawBomb(bomb.getPosition());
+    drawBomb(bomb);
     drawText(bomb.getPosition(), bomb.getTimeLeft());
   });
   gameState.fires.forEach(function (fire) {
@@ -75,7 +74,12 @@ function drawPlayer(player) {
 }
 
 function drawBomb(bomb) {
-  const positionInTileset = {x: 0, y: 0};
+  let animationFrame = Math.round(bomb.getTimeLeft() / 10) % 4;
+  if (animationFrame > 2) {
+    animationFrame = 1;
+  }
+  const position = bomb.getTilePosition();
+  const positionInTileset = {x: animationFrame, y: 0};
   const tileWidth = 32;
   const tileHeight = 32;
   ctx.drawImage(
@@ -86,8 +90,8 @@ function drawBomb(bomb) {
     tileWidth,
     tileWidth,
     // canvas:
-    bomb.x * mapTileWidth + Math.round(0.5 * (mapTileWidth - tileWidth)),
-    bomb.y * mapTileHeight + Math.round(0.5 * (mapTileHeight - tileHeight)),
+    position.x * mapTileWidth + Math.round(0.5 * (mapTileWidth - tileWidth)),
+    position.y * mapTileHeight + Math.round(0.5 * (mapTileHeight - tileHeight)),
     tileWidth,
     tileHeight
   );
