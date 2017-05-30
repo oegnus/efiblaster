@@ -20,10 +20,10 @@ const moveDict = {
 
 const rawMapData = [
   'rrrrrrr',
-  'rgggggr',
+  'rggdddr',
+  'rgrdrgr',
+  'rddgggr',
   'rdrgrgr',
-  'rdggggr',
-  'rgrgrgr',
   'rgggggr',
   'rrrrrrr'
 ];
