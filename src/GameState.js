@@ -1,21 +1,21 @@
-function getNewGameState(map) {
-  const player_0 = new Player(0, {x: 1, y: 1});
-  const player_1 = new Player(1, {x: 5, y: 5});
+import { Position } from './Position';
+import { Bomb } from './Bomb';
+
+export const GameState = {
+  getNewGameState: getNewGameState
+};
+
+function getNewGameState(map, players, bombs) {
   return {
-    players: [
-      player_0,
-      player_1
-    ],
-    bombs: [
-      new Bomb(player_0)
-    ],
+    players: players || [],
+    bombs: bombs || [],
     fires: [
     ],
     map: map,
     isTileOnFire: function (position) {
-      const tilePosition = positionToTilePosition(position);
+      const tilePosition = Position.positionToTilePosition(position);
       const firesInThisPosition = this.fires.filter(function (fire) {
-        return areTilePositionsEqual(tilePosition, fire.getTilePosition());
+        return Position.areTilePositionsEqual(tilePosition, fire.getTilePosition());
       });
       return firesInThisPosition.length > 0;
     },
@@ -24,7 +24,7 @@ function getNewGameState(map) {
     },
     getBombsInPosition: function (position) {
       return this.bombs.filter(function (bomb) {
-        return areTilePositionsEqual(bomb.getPosition(), position);
+        return Position.areTilePositionsEqual(bomb.getPosition(), position);
       });
     },
     placeBomb: function (player) {

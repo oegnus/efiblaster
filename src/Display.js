@@ -1,4 +1,4 @@
-const Draw = (function () {
+export const Display = (function () {
   const tilesetAsset = document.getElementById("tileset");
   const playerAsset = document.getElementById("player");
   const bombAsset = document.getElementById("bomb");

@@ -1,18 +1,11 @@
-const rawMapData = [
-  'rrrrrrr',
-  'rggdddr',
-  'rgrdrgr',
-  'rddgggr',
-  'rdrgrgr',
-  'rgggggr',
-  'rrrrrrr'
-];
+import { Position } from './Position';
+import { Fire } from './Fire';
 
-const gameState = getNewGameState(
-  Map.createNewMap(rawMapData)
-);
+export const Engine = {
+  tick: tick
+};
 
-setInterval(function () {
+function tick(getPlayerInput, gameState) {
   // TICK BOMBS
   gameState.bombs.forEach(function (bomb) {
     bomb.decreaseTimeLeft();
@@ -66,7 +59,7 @@ setInterval(function () {
     });
 
   function placeFire(gameState, range, position, direction) {
-    const nextPosition = sumPositions(position, direction);
+    const nextPosition = Position.sumPositions(position, direction);
     if (range > 0) {
       const tile = gameState.map.getTile(nextPosition);
       if (tile.type === 'g') {
@@ -114,12 +107,10 @@ setInterval(function () {
     );
     player.setPosition(newPlayerPosition);
   });
-
-  Draw.drawGameState(gameState);
-}, 20);
+}
 
 function move(state, playerPosition, playerDirection) {
-  const newPlayerPosition = sumPositions(
+  const newPlayerPosition = Position.sumPositions(
     playerPosition,
     playerDirection
   );
@@ -127,7 +118,7 @@ function move(state, playerPosition, playerDirection) {
     return newPlayerPosition;
   }
 
-  const newPlayerPositionX = sumPositions(
+  const newPlayerPositionX = Position.sumPositions(
     playerPosition,
     {x: playerDirection.x, y: 0}
   );
@@ -135,7 +126,7 @@ function move(state, playerPosition, playerDirection) {
     return newPlayerPositionX;
   }
 
-  const newPlayerPositionY = sumPositions(
+  const newPlayerPositionY = Position.sumPositions(
     playerPosition,
     {x: 0, y: playerDirection.y}
   );
@@ -147,7 +138,7 @@ function move(state, playerPosition, playerDirection) {
 }
 
 function canWalkOnPosition(state, currentPosition, position) {
-  if (areTilePositionsEqual(currentPosition, position)) {
+  if (Position.areTilePositionsEqual(currentPosition, position)) {
     return true;
   }
   if (state.isTileWithBomb(position)) {

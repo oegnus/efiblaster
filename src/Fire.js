@@ -1,4 +1,4 @@
-function Fire(position, timeLeft) {
+export function Fire(position, timeLeft) {
   this.position = position || {x: 0, y: 0};
   this.timeLeft = timeLeft || 30;
 

@@ -1,4 +1,4 @@
-function Bomb(player, timeLeft) {
+export function Bomb(player, timeLeft) {
   this.player = player;
   this.position = player.getTilePosition() || {x: 0, y: 0};
   this.timeLeft = timeLeft || 100;

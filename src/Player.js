@@ -1,4 +1,4 @@
-function Player(playerNumber, position, direction) {
+export function Player(playerNumber, position, direction) {
   this.playerNumber = playerNumber;
   this.range = 2;
   this.maxBombsNumber = 2;
