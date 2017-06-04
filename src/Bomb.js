@@ -1,3 +1,5 @@
+import { Position } from './Position';
+
 export function Bomb(player, timeLeft) {
   this.player = player;
   this.position = player.getTilePosition() || {x: 0, y: 0};
@@ -8,10 +10,9 @@ export function Bomb(player, timeLeft) {
   };
 
   this.getTilePosition = function () {
-    return {
-      x: Math.round(this.position.x),
-      y: Math.round(this.position.y)
-    };
+    return Position.positionToTilePosition(
+      this.position
+    );
   };
 
   this.getTimeLeft = function () {
