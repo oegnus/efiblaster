@@ -7,6 +7,7 @@ export const GameState = {
 
 function getNewGameState(map, players, bombs) {
   return {
+    tick: 0,
     players: players || [],
     bombs: bombs || [],
     fires: [

@@ -1,5 +1,6 @@
 export const Display = (function () {
   const tilesetAsset = document.getElementById("tileset");
+  const charactersAsset = document.getElementById("characters");
   const playerAsset = document.getElementById("player");
   const bombAsset = document.getElementById("bomb");
 
@@ -39,7 +40,7 @@ export const Display = (function () {
     });
     gameState.players.forEach(function (player) {
       drawOutline(player.getTilePosition(), 'blue');
-      drawPlayer(player.getPosition());
+      drawPlayer(player, gameState.tick);
     });
   }
 
@@ -64,20 +65,40 @@ export const Display = (function () {
     }
   }
 
-  function drawPlayer(player) {
-    const positionInTileset = {x: 0, y: 0};
-    const tileWidth = 50;
-    const tileHeight = 44;
+  function drawPlayer(player, tick) {
+    const playerNumOffset = 3 * player.getPlayerNumber();
+    const position = player.getPosition();
+    const direction = player.getDirection();
+
+    const spriteNums = {0: 0, 1: 1, 2: 2, 3: 1};
+    const movementFrame = Math.round(tick / 8) % 4;
+    const spriteNum = playerNumOffset + spriteNums[movementFrame];
+    let positionInTileset = {x: 7 + playerNumOffset, y: 0};
+    if (player.getDirection().y > 0) {
+      positionInTileset = {x: 6 + spriteNum, y: 0};
+    }
+    if (player.getDirection().y < 0) {
+      positionInTileset = {x: 6 + spriteNum, y: 3};
+    }
+    if (player.getDirection().x < 0) {
+      positionInTileset = {x: 6 + spriteNum, y: 1};
+    }
+    if (player.getDirection().x > 0) {
+      positionInTileset = {x: 6 + spriteNum, y: 2};
+    }
+
+    const tileWidth = 32;
+    const tileHeight = 48;
     ctx.drawImage(
       // tileset:
-      playerAsset,
+      charactersAsset,
       positionInTileset.x * tileWidth,
-      positionInTileset.y * tileWidth,
+      positionInTileset.y * tileHeight,
       tileWidth,
-      tileWidth,
+      tileHeight,
       // canvas:
-      player.x * mapTileWidth + Math.round(0.5 * (mapTileWidth - tileWidth)),
-      player.y * mapTileHeight + Math.round(0.5 * (mapTileHeight - tileHeight)),
+      Math.round(position.x * mapTileWidth + 0.5 * (mapTileWidth - tileWidth)),
+      Math.round(position.y * mapTileHeight + 0.5 * (mapTileHeight - tileHeight)),
       tileWidth,
       tileHeight
     );

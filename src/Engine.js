@@ -106,7 +106,10 @@ function tick(getPlayerInput, gameState) {
       movement
     );
     player.setPosition(newPlayerPosition);
+    player.setDirection(movement);
   });
+
+  gameState.tick ++;
 }
 
 function move(state, playerPosition, playerDirection) {
