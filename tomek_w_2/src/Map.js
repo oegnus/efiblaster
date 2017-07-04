@@ -1,6 +1,6 @@
 export const Map = {
   createNewMap: function (rawMapData) {
-    const map = {
+    return {
       getWidth: function () {
         if (rawMapData[0]) {
           return rawMapData[0].length;
@@ -32,6 +32,5 @@ export const Map = {
         };
       }
     };
-    return map;
   }
 };
