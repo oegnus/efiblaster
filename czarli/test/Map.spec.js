@@ -1,4 +1,4 @@
-const assert = require('assert');
+var assert = require('assert');
 import 'babel-polyfill';
 import { Map } from '../src/Map';
 
@@ -22,6 +22,21 @@ describe('Map', function() {
     assert.strictEqual(tile.y, 2);
   });
 
+  it('should return . outside of map borders', function() {
+    const map = Map.createNewMap([
+      'g'
+    ]);
+    const tile = map.getTile({x: -1, y: -1});
+    assert.strictEqual(tile.type, '.');
+  });
+
+  it('should return tile from outside of map with position', function() {
+    const map = Map.createNewMap([]);
+    const tile = map.getTile({x: 1, y: 2});
+    assert.strictEqual(tile.x, 1);
+    assert.strictEqual(tile.y, 2);
+  });
+
   it('should return tile for non integer position', function() {
     const map = Map.createNewMap([
       'gggg',
@@ -39,33 +54,28 @@ describe('Map', function() {
     assert.strictEqual(tileOutside.y, 3);
   });
 
-  // it('should return tile from outside of map with position', function() {
-  //   const map = Map.createNewMap([]);
-  //   const tile = map.getTile({x: 1, y: 2});
-  //   assert.strictEqual(tile.x, 1);
-  //   assert.strictEqual(tile.y, 2);
-  // });
-  //
-  // it('should return . outside of map borders', function() {
-  //   const map = Map.createNewMap([
-  //     'g'
-  //   ]);
-  //   const tile = map.getTile({x: -1, y: -1});
-  //   assert.strictEqual(tile.type, '.');
-  // });
-  //
-  // it('should return empty map size', function() {
-  //   const map1 = Map.createNewMap([]);
-  //   assert.strictEqual(map1.getHeight(), 0);
-  //   assert.strictEqual(map1.getWidth(), 0);
-  // });
-  //
-  // it('should return map size', function() {
-  //   const map2 = Map.createNewMap([
-  //     'ggg',
-  //     'ggg'
-  //   ]);
-  //   assert.strictEqual(map2.getHeight(), 2);
-  //   assert.strictEqual(map2.getWidth(), 3);
-  // });
+  it('should return empty map size', function() {
+    const map = Map.createNewMap([]);
+    assert.strictEqual(map.getWidth(), 0);
+    assert.strictEqual(map.getHeight(), 0);
+  });
+
+  it('should return map size', function() {
+    const map = Map.createNewMap([
+      'ggg',
+      'ggg'
+    ]);
+    assert.strictEqual(map.getWidth(), 3);
+    assert.strictEqual(map.getHeight(), 2);
+  });
+
+  it('should return tile type', function() {
+    const map = Map.createNewMap([
+      'abc',
+      'def'
+    ]);
+    assert.strictEqual(map.getTile({x: 0, y: 0}).type, 'a');
+    assert.strictEqual(map.getTile({x: 1, y: 0}).type, 'b');
+    assert.strictEqual(map.getTile({x: 1, y: 1}).type, 'e');
+  });
 });

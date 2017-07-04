@@ -1,5 +1,4 @@
 class _Map {
-
   constructor(map) {
     this.map = this.writeMapWithObjects(map);
   }
@@ -7,17 +6,19 @@ class _Map {
   writeMapWithObjects(charsArray) {
     let map = [];
 
-    charsArray.forEach((row, rowIndex) => {
-      map[rowIndex] = [];
+    if (charsArray) {
+      charsArray.forEach((row, rowIndex) => {
+        map[rowIndex] = [];
 
-      row.forEach((char, charIndex) => {
-        map[rowIndex][charIndex] = {
-          type: char,
-          x: charIndex,
-          y: rowIndex
-        }
-      })
-    });
+        row.forEach((char, charIndex) => {
+          map[rowIndex][charIndex] = {
+            type: char,
+            x: charIndex,
+            y: rowIndex
+          }
+        })
+      });
+    }
 
     return map;
   }
@@ -26,7 +27,19 @@ class _Map {
     let xRounded = Math.round(x);
     let yRounded = Math.round(y);
 
-    return this.map[yRounded][xRounded]
+    if (this.map[yRounded] && this.map[yRounded][xRounded]) {
+      return this.map[yRounded][xRounded]
+    }
+
+    return {type: '.', x: xRounded, y: yRounded}
+  }
+
+  getWidth() {
+    return this.map[0] ? this.map[0].length : 0;
+  }
+
+  getHeight() {
+    return this.map.length;
   }
 }
 
