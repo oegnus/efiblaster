@@ -19,4 +19,23 @@ describe('Engine', function () {
 
     assert.deepEqual(gameState.players, [{x: 0, y: 0}]);
   });
+
+  it('should move player right', function () {
+    const map = Map.createNewMap([
+      'ggg',
+      'ggg',
+      'ggg',
+    ]);
+    const players = [{x: 0, y: 0}];
+    const gameState = GameState.getNewGameState(map, players);
+    const getPlayerInput = () => {
+      return {
+        direction: {x: 1, y: 0}
+      };
+    };
+
+    Engine.tick(getPlayerInput, gameState);
+
+    assert.deepEqual(gameState.players, [{x: 0.1, y: 0}]);
+  });
 });
