@@ -1,5 +1,8 @@
-import { Map } from './Map';
 import { Display } from './Display';
+import { Engine } from './Engine';
+import { GameState } from './GameState';
+import { Input } from './Input';
+import { Map } from './Map';
 
 const map = Map.createNewMap([
   'rrrrrrr',
@@ -11,9 +14,9 @@ const map = Map.createNewMap([
   'rrrrrrr'
 ]);
 
-const gameState = {
-  map: map,
-  players: [
+const gameState = GameState.getNewGameState(
+  map,
+  [
     {
       x: 1,
       y: 3
@@ -23,21 +26,11 @@ const gameState = {
       y: 5
     }
   ]
-};
+);
 
 setInterval(tick, 100);
 
 function tick() {
-  const p1 = gameState.players[0];
-  const newPlayerPosition = {
-    x: p1.x + 0.1,
-    y: p1.y
-  };
-  const tile = gameState.map.getTile(newPlayerPosition);
-  if (tile.type === 'g') {
-    p1.x = newPlayerPosition.x;
-    p1.y = newPlayerPosition.y;
-  }
-
+  Engine.tick(Input.getPlayerInput, gameState);
   Display.drawGameState(gameState);
 }
