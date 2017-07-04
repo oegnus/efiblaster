@@ -23,10 +23,10 @@ export const Input = (function () {
     P2_BOMB: 81
   };
 
-  // if (document) {
-  //   document.addEventListener('keydown', onKeyDownHandler);
-  //   document.addEventListener('keyup', onKeyUpHandler);
-  // }
+  if (document && document.addEventListener) {
+    document.addEventListener('keydown', onKeyDownHandler);
+    document.addEventListener('keyup', onKeyUpHandler);
+  }
 
   // module public interface:
   return {
