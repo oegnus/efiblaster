@@ -1,13 +1,17 @@
-var assert = require('assert');
+const assert = require('assert');
 import 'babel-polyfill';
 import { GameState } from '../src/GameState';
+import { Map } from '../src/Map';
 
-describe('Map', function() {
-  it('should return tile', function() {
-    const map = Map.createNewMap([
-      'g'
-    ]);
-    const tile = map.getTile({x: 0, y: 0});
-    assert.strictEqual(tile.type, 'g');
+describe('GameState', function() {
+  it('should return new game state', function() {
+    const player = {x: 2, y: 3};
+    const map = Map.createNewMap([]);
+    const gameState = GameState.getNewGameState(
+      map,
+      [player]
+    );
+    assert.strictEqual(gameState.map, map);
+    assert.strictEqual(gameState.players[0], player);
   });
 });
