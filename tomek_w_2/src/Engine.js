@@ -12,14 +12,20 @@ export const Engine = {
     if (p0_input.direction.x < 0) {
       p0_positionDelta.x = -playerSpeed;
     }
+    if (p0_input.direction.y > 0) {
+      p0_positionDelta.y = playerSpeed;
+    }
+    if (p0_input.direction.y < 0) {
+      p0_positionDelta.y = -playerSpeed;
+    }
     const p0_newPosition = {
       x: Math.round(100 * (p0.x + p0_positionDelta.x)) * 0.01,
       y: Math.round(100 * (p0.y + p0_positionDelta.y)) * 0.01
     };
     const tile = gameState.map.getTile(p0_newPosition);
-    if (tile.type === 'g') {
+    // if (tile.type === 'g') {
       p0.x = p0_newPosition.x;
       p0.y = p0_newPosition.y;
-    }
+    // }
   }
 };
