@@ -9,11 +9,9 @@ describe('Engine', function () {
     const map = Map.createNewMap([]);
     const players = [{x: 0, y: 0}];
     const gameState = GameState.getNewGameState(map, players);
-    const getPlayerInput = () => {
-      return {
-        direction: {x: 0, y: 0}
-      };
-    };
+    const getPlayerInput = () => ({
+      direction: {x: 0, y: 0}
+    });
 
     Engine.tick(getPlayerInput, gameState);
 
@@ -28,11 +26,9 @@ describe('Engine', function () {
     ]);
     const players = [{x: 0, y: 0}];
     const gameState = GameState.getNewGameState(map, players);
-    const getPlayerInput = () => {
-      return {
-        direction: {x: 1, y: 0}
-      };
-    };
+    const getPlayerInput = () => ({
+      direction: {x: 1, y: 0}
+    });
 
     Engine.tick(getPlayerInput, gameState);
 
@@ -47,11 +43,9 @@ describe('Engine', function () {
     ]);
     const players = [{x: 0, y: 0}];
     const gameState = GameState.getNewGameState(map, players);
-    const getPlayerInput = () => {
-      return {
-        direction: {x: -1, y: 0}
-      };
-    };
+    const getPlayerInput = () => ({
+      direction: {x: -1, y: 0}
+    });
 
     Engine.tick(getPlayerInput, gameState);
     Engine.tick(getPlayerInput, gameState);
@@ -68,11 +62,9 @@ describe('Engine', function () {
     ]);
     const players = [{x: 1, y: 1}];
     const gameState = GameState.getNewGameState(map, players);
-    const getPlayerInput = () => {
-      return {
-        direction: {x: 0, y: -1}
-      };
-    };
+    const getPlayerInput = () => ({
+      direction: {x: 0, y: -1}
+    });
 
     Engine.tick(getPlayerInput, gameState);
     Engine.tick(getPlayerInput, gameState);
@@ -88,11 +80,9 @@ describe('Engine', function () {
     ]);
     const players = [{x: 1, y: 1}];
     const gameState = GameState.getNewGameState(map, players);
-    const getPlayerInput = () => {
-      return {
-        direction: {x: 0, y: 1}
-      };
-    };
+    const getPlayerInput = () => ({
+      direction: {x: 0, y: 1}
+    });
 
     Engine.tick(getPlayerInput, gameState);
     Engine.tick(getPlayerInput, gameState);
@@ -109,9 +99,9 @@ describe('Engine', function () {
     const players = [{x: 0, y: 0}];
     const gameState = GameState.getNewGameState(map, players);
     let direction = {x: -1, y: 0};
-    const getPlayerInput = () => () => {
+    const getPlayerInput = () => ({
       direction: direction
-    };
+    });
 
     direction = {x: -1, y: 0};
     Engine.tick(getPlayerInput, gameState);
