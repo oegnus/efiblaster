@@ -41,7 +41,7 @@ describe('Engine', function () {
       'ggg',
       'ggg',
     ]);
-    const players = [{x: 0, y: 0}];
+    const players = [{x: 1, y: 0}];
     const gameState = GameState.getNewGameState(map, players);
     const getPlayerInput = () => ({
       direction: {x: -1, y: 0}
@@ -51,7 +51,7 @@ describe('Engine', function () {
     Engine.tick(getPlayerInput, gameState);
     Engine.tick(getPlayerInput, gameState);
 
-    assert.deepEqual(gameState.players, [{x: -0.3, y: 0}]);
+    assert.deepEqual(gameState.players, [{x: 0.7, y: 0}]);
   });
 
   it('should move player up', function () {
