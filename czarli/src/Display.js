@@ -8,7 +8,9 @@ const tileSize = 33;
 export const Display = {
   drawGameState: function (gameState) {
     this.drawMap(gameState.map);
-    gameState.players.forEach(drawPlayer);
+    gameState.players.forEach((player) => {
+      drawPlayer(player)
+    });
   },
   drawMap: function (map) {
     for (let y = 0; y < map.getHeight(); y ++) {
@@ -22,6 +24,16 @@ export const Display = {
 };
 
 function drawPlayer(player) {
+  const playerWidth = 50;
+  const playerHeight = 44;
+  ctx.beginPath();
+  ctx.rect(
+    player.x * tileSize - (playerWidth - tileSize) / 2,
+    player.y * tileSize - (playerHeight - tileSize) / 2,
+    50,
+    44
+  );
+  ctx.stroke();
   ctx.drawImage(
     // tileset:
     playerAsset,
@@ -30,8 +42,8 @@ function drawPlayer(player) {
     50,
     44,
     // canvas:
-    player.x * tileSize,
-    player.y * tileSize,
+    player.x * tileSize - (playerWidth - tileSize) / 2,
+    player.y * tileSize - (playerHeight - tileSize) / 2,
     50,
     44
   );
