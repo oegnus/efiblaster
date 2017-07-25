@@ -1,7 +1,10 @@
 // game code goes here
 import { Position } from './Position';
+import { GameState } from './GameState';
 import { Map } from './Map';
 import { Display } from './Display';
+import { Engine } from './Engine';
+import { Input } from './Input';
 
 const mapData = [
     'rrgggrr',
@@ -12,16 +15,25 @@ const mapData = [
     'ggggrrr'
 ];
 
-const gameState = {
-    players: [{
+const players = [{
             x: 1,
             y: 2
         },
         {
             x: 3,
             y: 3
-        }],
-    map: Map.createNewMap(mapData)
-};
+        }];
+
+const gameState = GameState.getNewGameState(
+    Map.createNewMap(mapData),
+    players
+);
 
 Display.drawGameState(gameState);
+
+setInterval(
+    () => {
+        Engine.tick(Input.getPlayerInput, gameState);
+        Display.drawGameState(gameState);
+    }, 100
+);
