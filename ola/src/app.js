@@ -4,7 +4,7 @@ import { GameState } from './GameState';
 import { Map } from './Map';
 import { Display } from './Display';
 import { Engine } from './Engine';
-import { Input } from './Input';
+import { Input } from './Input.tomek';
 
 const mapData = [
     'rrgggrr',
