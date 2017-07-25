@@ -13,6 +13,14 @@ const mapData = [
 ];
 
 const gameState = {
+    players: [{
+            x: 1,
+            y: 2
+        },
+        {
+            x: 3,
+            y: 3
+        }],
     map: Map.createNewMap(mapData)
 };
 

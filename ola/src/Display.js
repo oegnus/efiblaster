@@ -5,11 +5,41 @@ export const Display = {
 
 const c = document.getElementById('efiCanvas');
 const ctx = c.getContext('2d');
+const playerColors = ['blue', 'red'];
 
 function drawGameState(gameState) {
     console.log('--- drawGameState ---');
-    
-    const map = gameState.map;
+    drawMap(gameState.map);
+    drawPlayers(gameState.players);
+}
+
+function drawPlayers(players) {
+    players.forEach(
+        (player, index) => {
+            drawPlayer(player, playerColors[index]);
+        });
+}
+
+function drawPlayer(player, color) {
+    const tileWidth = 20;
+    const tileHeight = 20;
+    ctx.fillStyle = color;
+    ctx.strokeStyle = 'yellow';
+    ctx.beginPath();
+    ctx.arc(
+        (player.x + 0.5) * tileWidth,
+        (player.y + 0.5) * tileHeight,
+        tileWidth / 2,
+        0,
+        2*Math.PI,
+        false);
+    ctx.fill();
+    ctx.lineWidth = 5;
+    ctx.stroke();
+    ctx.closePath();
+}
+
+function drawMap(map) {
     for (let y = 0; y < map.getHeight(); y ++) {
         for (let x = 0; x < map.getWidth(); x ++) {
             let tile = map.getTile({
@@ -19,7 +49,6 @@ function drawGameState(gameState) {
             drawTile(tile);
         }
     }
-
 }
 
 function drawTile(tile) {
