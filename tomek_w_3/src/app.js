@@ -1,6 +1,9 @@
 import { Position } from './Position';
+import { GameState } from './GameState';
 import { Map } from './Map';
+import { Input } from './Input.tomek';
 import { Display } from './Display';
+import { Engine } from './Engine';
 
 const mapData = [
   'rrgggrr',
@@ -11,8 +14,26 @@ const mapData = [
   'ggggrrr'
 ];
 
-const gameState = {
-  map: Map.createNewMap(mapData)
-};
+const players = [
+  {
+    x: 1,
+    y: 2
+  },
+  {
+    x: 3,
+    y: 3
+  }
+];
 
-Display.drawGameState(gameState);
+const gameState = GameState.getNewGameState(
+  Map.createNewMap(mapData),
+  players
+);
+
+setInterval(
+  () => {
+    Engine.tick(Input.getPlayerInput, gameState);
+    Display.drawGameState(gameState);
+  },
+  100
+);
