@@ -6,39 +6,50 @@ export const Display = {
 const c = document.getElementById('efiCanvas');
 const ctx = c.getContext('2d');
 
-function drawGameState() {
+function drawGameState(gameState) {
     console.log('--- drawGameState ---');
-    drawTile({
-        type: 'r',
-        x: 0,
-        y: 0
-    });
-    drawTile({
-        type: 'g',
-        x: 1,
-        y: 0
-    });
+    
+    const map = gameState.map;
+    for (let y = 0; y < map.getHeight(); y ++) {
+        for (let x = 0; x < map.getWidth(); x ++) {
+            let tile = map.getTile({
+                x: x,
+                y: y
+            });
+            drawTile(tile);
+        }
+    }
 
 }
 
 function drawTile(tile) {
-    const tileWidth = 10;
-    const tileHeight = 10;
-    if(tile.type === 'r') {
-        ctx.fillStyle = 'gray';
-    } else if(tile.type === 'g') {
+    const tileWidth = 20;
+    const tileHeight = 20;
+    if (tile.type === 'r') {
+        ctx.fillStyle = 'grey';
+    } else if (tile.type === 'g') {
         ctx.fillStyle = 'green';
     } else {
         ctx.fillStyle = 'red';
     }
     ctx.beginPath();
-    ctx.strokeStyle = 'yellow';
-    ctx.lineWidth = 4;
     ctx.fillRect(
         tile.x * tileWidth,
         tile.y * tileHeight,
         tileWidth,
-        tileHeight);
+        tileHeight
+    );
+    ctx.closePath();
+    
+    ctx.beginPath();
+    ctx.strokeStyle = 'black';
+    ctx.lineWidth = 2;
+    ctx.rect(
+        tile.x * tileWidth,
+        tile.y * tileHeight,
+        tileWidth,
+        tileHeight
+    );
     ctx.stroke();
     ctx.closePath();
 }
